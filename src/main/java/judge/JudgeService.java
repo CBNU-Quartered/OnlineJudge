@@ -1,19 +1,21 @@
 package judge;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import util.ShellCommandUtil;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 @Service
 public class JudgeService {
+    static Dotenv dotenv = Dotenv.load();
     private static final Logger logger = LoggerFactory.getLogger(JudgeService.class);
 
-    private static final String TESTER_DIR = "/Users/hyogeon/Downloads/JudgerProject/Desktop/tester";
-    private static final String DOCKER_DIR = "/home";
+    private static final String TESTER_DIR = dotenv.get("TESTER_DIR");
+    private static final String DOCKER_DIR = dotenv.get("DOCKER_DIR");
 
     private static final String RUN_CODE_COMMAND = "./libjudger.so " +
             "--max_cpu_time=1000 " +
